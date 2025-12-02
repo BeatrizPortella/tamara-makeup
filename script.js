@@ -90,4 +90,34 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', () => {
         requestAnimationFrame(handleParallax);
     });
+
+    // Mobile Portfolio Scroll Arrow Logic
+    const scrollArrowRight = document.getElementById('scroll-arrow-right');
+    const scrollArrowLeft = document.getElementById('scroll-arrow-left');
+    const portfolioGrid = document.querySelector('.portfolio-grid');
+
+    if (portfolioGrid) {
+        const getScrollAmount = () => {
+            const item = portfolioGrid.querySelector('.portfolio-item');
+            return item ? item.offsetWidth + 20 : window.innerWidth * 0.85 + 20; // item width + gap
+        };
+
+        if (scrollArrowRight) {
+            scrollArrowRight.addEventListener('click', () => {
+                portfolioGrid.scrollBy({
+                    left: getScrollAmount(),
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        if (scrollArrowLeft) {
+            scrollArrowLeft.addEventListener('click', () => {
+                portfolioGrid.scrollBy({
+                    left: -getScrollAmount(),
+                    behavior: 'smooth'
+                });
+            });
+        }
+    }
 });
