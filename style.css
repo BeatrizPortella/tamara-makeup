@@ -1204,6 +1204,10 @@ footer {
     transform: translateY(0);
 }
 
+.mobile-scroll-controls {
+    display: none;
+}
+
 /* Responsive */
 @media (max-width: 900px) {
 
@@ -1536,11 +1540,18 @@ footer {
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         gap: 20px;
-        padding-bottom: 20px;
-        /* Space for scrollbar */
+        padding-bottom: 30px;
+        /* Space for scrollbar/arrow */
         margin-top: 20px;
         grid-template-columns: none;
         /* Reset grid */
+        -webkit-overflow-scrolling: touch;
+        /* Smooth scroll iOS */
+    }
+
+    .portfolio-grid::-webkit-scrollbar {
+        display: none;
+        /* Hide scrollbar for cleaner look */
     }
 
     .portfolio-item {
@@ -1548,7 +1559,94 @@ footer {
         /* Show mostly one item */
         scroll-snap-align: center;
         height: 400px;
+        /* Fixed height for consistency */
         flex-shrink: 0;
+        background: transparent;
+        /* Remove background so it doesn't look like a box */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .portfolio-item img {
+        object-fit: contain;
+        /* Show full image, no crop/zoom */
+        object-position: center;
+        /* Ensure it's centered */
+        max-height: 100%;
+        max-width: 100%;
+        width: auto;
+        /* Allow width to shrink to fit content */
+        height: auto;
+        /* Allow height to shrink to fit content */
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        /* Optional: add shadow to image itself */
+    }
+
+    .mobile-scroll-controls {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        margin-top: 20px;
+        /* Moved down to avoid overlap */
+        margin-bottom: 30px;
+    }
+
+    .mobile-scroll-indicator {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--primary-color);
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    #scroll-arrow-right {
+        animation: bounce-right 2s infinite;
+    }
+
+    #scroll-arrow-left {
+        animation: bounce-left 2s infinite;
+    }
+
+    @keyframes bounce-right {
+
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+            transform: translateX(0);
+        }
+
+        40% {
+            transform: translateX(10px);
+        }
+
+        60% {
+            transform: translateX(5px);
+        }
+    }
+
+    @keyframes bounce-left {
+
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+            transform: translateX(0);
+        }
+
+        40% {
+            transform: translateX(-10px);
+        }
+
+        60% {
+            transform: translateX(-5px);
+        }
     }
 
     /* Packages Grid Mobile */
